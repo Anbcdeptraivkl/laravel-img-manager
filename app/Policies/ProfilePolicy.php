@@ -53,7 +53,8 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile)
     {
-        //
+        // Chekcing if the viewing User is the same as the Logging in User
+        return $user->id == $profile->user_id;
     }
 
     /**

@@ -4,14 +4,18 @@
 <div class="container w-75">
     <div class="row">
         <div class="col-3 pl-5">
-            <img class="rounded-circle" src="{{ URL::to('/') }}/images/avatar-placeholder.png" style="width:200px; height: 175px;">
+            <img class="rounded-circle w-100 profile-image" src="{{ $user->profile->profileImage() }}" style="width:200px; height: 175px;">
         </div>
         <div class="col-9 pt-3 pl-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h2>{{ $user->username }}</h2>
-                <button type="button" class="btn btn-primary" onclick="location.href = '/p/create';">New Post</button>
+                @can('update', $user->profile)
+                    <button type="button" class="btn btn-primary" onclick="location.href = '/p/create';">New Post</button>
+                @endcan
             </div>
-            <a href = '/profile/{{ $user->id }}/edit'>Edit Profile</a>
+            @can('update', $user->profile)
+                <a href = '/profile/{{ $user->id }}/edit'>Edit Profile</a>
+            @endcan
             <div class="d-flex">
                 <div class="pr-4"><strong>{{ $user->posts->count()}}</strong> posts</div>
                 <div class="pr-4"><strong>100</strong> followers</div>
