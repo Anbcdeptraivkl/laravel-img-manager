@@ -9,17 +9,22 @@
         <div class="col-9 pt-3 pl-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h2>{{ $user->username }}</h2>
-                @can('update', $user->profile)
-                    <button type="button" class="btn btn-primary" onclick="location.href = '/p/create';">New Post</button>
-                @endcan
+                <div class="d-flex align-items-center">
+                    <!--Follow Button with Followed Status Data-->
+                    <follow-button user-id="{{ $user->id }}" followed="{{ $followed }}"></follow-button>
+                    @can('update', $user->profile)
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/p/create';">New Post</button>
+                    @endcan
+                </div>
             </div>
             @can('update', $user->profile)
                 <a href = '/profile/{{ $user->id }}/edit'>Edit Profile</a>
             @endcan
+            <!--Telescope-->
             <div class="d-flex">
                 <div class="pr-4"><strong>{{ $user->posts->count()}}</strong> posts</div>
-                <div class="pr-4"><strong>100</strong> followers</div>
-                <div class="pr-4"><strong>100</strong> following</div>
+                <div class="pr-4"><strong>{{ $user->profile->followers->count() }}</strong> followers</div>
+                <div class="pr-4"><strong>{{ $user->followings->count() }}</strong> following</div>
             </div>
             <div class="pt-3"><a href="#">{{ $user->profile->title }}</a></div>
             <div><p>{{ $user->profile->description }}</p></div>

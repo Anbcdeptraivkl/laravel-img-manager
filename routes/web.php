@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// No more Home Welcome Route (not compatible with what we are going for)
 
 Auth::routes();
 
+// Following User
+Route::post('/follow/{user}', 'FollowsController@store');
+
+// Redirecting after logged in
+Route::get('/', 'PostsController@index');
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile.show');
 Route::get('/profile/{user}/edit', 'ProfileController@edit')->name('profile.edit');
 // After Editing (Form Submitting with PATCH method)

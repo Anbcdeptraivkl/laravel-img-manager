@@ -11,6 +11,11 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
+    // Listing all Following Profiles of the CUrrently Auth-ed User
+    public function index() {
+        //
+    }
+
     //
     public function create() {
         return view('posts/create');

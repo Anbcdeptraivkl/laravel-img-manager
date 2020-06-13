@@ -12,9 +12,11 @@ class ProfileController extends Controller
     //
     public function index(User $user)
     {
+        // Status: If the logged in User had followed this Profile already
+        $followed = (auth()->user()) ? (auth()->user()->followings->contains($user->id)) : false;
         return view(
             'profiles/index',
-            compact('user')
+            compact('user', 'followed')
         );
     }
 
@@ -65,5 +67,3 @@ class ProfileController extends Controller
         return redirect("/profile/{$user->id}");
     }
 }
-
-// Making Following and Followers Functionalities with Vue.js Components and Functions
